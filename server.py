@@ -63,7 +63,7 @@ class Server :
                             break
                         offset += 1
 
-                    print(f"\nSuccesfully received {filename} and saved in server's folder")
+                    print(f"\nSuccesfully received {filename} and saved in the server's folder")
 
             elif option == '0' :
                 print("\nSending . . .")
