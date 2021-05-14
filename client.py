@@ -19,17 +19,17 @@ class Client():
         print('## Numer klienta ' + res.decode('utf-8') + " ##")
 
         while True :
-            Input = input('\n[0] - pobranie pliku z serwera \n[1] - wyslanie pliku do serwera \n\nPodaj numer opcji: ')
+            Input = input('\n[0] - Download file from the server \n[1] - Send file to server \n\nEnter option number: ')
             if int(Input) :
                 filename = input(
-                    "\nPodaj sciezke do pliku, ktory ma byc wyslany do celu lub kliknij Enter aby wyslac domyslny plik: ")
+                    "\nEnter the file path to be sent to the target or press Enter to send the default file.: ")
                 if filename :
                     self.send_file(filename)
                 else :
                     self.send_file( )
             else :
                 filename = input(
-                    "\nPodaj sciezke do pliku, ktory ma byc pobrany z serwera lub kliknij Enter aby pobrac domyslny plik: ")
+                    "\nEnter the file path to be sent to the target or press Enter to send the default file.: ")
                 if filename :
                     self.download_file(filename)
                 else :
@@ -46,7 +46,7 @@ class Client():
                 if not bytes_read :
                     break
                 self.ClientMultiSocket.sendall(bytes_read)
-        print(f"\nPomyslnie wyslano plik {filename} do serwera")
+        print(f"\n Succesfully sent {filename} to the server")
 
     def download_file(self, _filename='server/doc_server.doc') :
         filesize = option = 0
@@ -72,7 +72,7 @@ class Client():
                 if abs(int(filesize) - int(current_filesize)) <= self.BUFFER_SIZE:
                     break
 
-            print(f"\nPomyslnie odebrano plik {base_filename} i zapisano w folerze klienta\n")
+            print(f"\nSuccesfully received {base_filename} and saved in client's folder\n")
 
 client = Client()
 client.client_cycle()
