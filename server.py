@@ -27,13 +27,13 @@ class Server :
         except socket.error as e :
             print(str(e))
 
-        print(f'\nSerwer zostal uruchomiony! (liczba klientow - {self.clients_num})\n. . .')
+        print(f'\nServer is running y! (number of clients - {self.clients_num})\n. . .')
         self.ServerSideSocket.listen(5)
 
         while True :
             Client, address = self.ServerSideSocket.accept( )
             self.ThreadCount += 1
-            print('\nNowy klient podlaczony, adres: ' + address[0] + ':' + str(address[1]) + ' numer watku: ' + str(
+            print('\nNew client connected, address: ' + address[0] + ':' + str(address[1]) + ' thread no. ' + str(
                 self.ThreadCount))
             start_new_thread(self.multi_threaded_client, (Client,))
 
@@ -45,7 +45,7 @@ class Server :
             received = connection.recv(self.BUFFER_SIZE).decode( )
             filename, filesize, option = received.split(self.SEPARATOR)
             if option == '1' :
-                print("\nOdbieram . . .")
+                print("\nReceiving . . .")
                 filename = os.path.basename(filename)
                 filename = 'server/' + filename
                 with open(filename, "wb") as f :
@@ -63,10 +63,10 @@ class Server :
                             break
                         offset += 1
 
-                    print(f"\nPomyslnie odebrano plik {filename} i zapisano w folerze serwera")
+                    print(f"\nSuccesfully received {filename} and saved in server's folder")
 
             elif option == '0' :
-                print("\nWysylam . . .")
+                print("\nSending . . .")
                 filesize = os.path.getsize(filename)
                 connection.send(f"{filename}{self.SEPARATOR}{filesize}".encode( ))
                 with open(filename, "rb") as f :
@@ -76,7 +76,7 @@ class Server :
                             break
                         connection.send(bytes_read)
 
-                print(f"\nPomyslnie wyslano plik {filename} do klienta")
+                print(f"\nSuccesfully sent {filename} to the client")
 
 
 parser = argparse.ArgumentParser( )
